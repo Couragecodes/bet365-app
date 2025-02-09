@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Define the context type
 type StateContextType = {
-  betState: string; // Current bet string
+  betState: string | 'Cash Out'; // Current bet string
   selectBet: (newBet: string) => Promise<void>; // Function to update the bet
 };
 

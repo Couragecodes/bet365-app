@@ -32,15 +32,9 @@ const PADDINGS = {
   vertical: normalizeHeight(15),
 };
 
-interface TicketMatchInfo {
-  id: string;
-  outCome: string;
-  booking: string;
-}
-
 // const { betState } = useBet();
 
-const TicketFull = ({ title }: { title: string }) => {
+const TicketFull = () => {
   const data: TicketInfoProp = ticketInfos;
   const MatchData = data.selections;
 

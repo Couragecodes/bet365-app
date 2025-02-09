@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 import { BetProvider, useBet } from '../../context/mybets/StateContext';
@@ -43,7 +43,7 @@ const MyBetsPage: React.FC<MyBetsPageProps> = ({ data }) => {
   const getCardContent = (emptyTitle: string, emptyDescription: string, emptyTextExta?: string) => {
     const description = { main: emptyDescription, extra: emptyTextExta };
     return shouldRenderTicketFull() ? (
-      <TicketFull title={betState} />
+      <TicketFull />
     ) : (
       <EmptyCard title={emptyTitle} description={description} />
     );
