@@ -1,7 +1,7 @@
 import { Status } from '../../modules/myBets/components/ticket/StautsOutcome';
 import { Stats, formatCurrency } from '../../utils/formatters';
 
-type TicketSelection = {
+export type TicketSelection = {
   event: string;
   dateTime: string;
   market: string;
@@ -28,7 +28,7 @@ export const ticketInfos: TicketInfoProp = {
       market: 'Correct Score',
       selection: 'Criciuma 2-1',
       odds: 14.0,
-      status: 'notplayed',
+      status: 'won',
     },
     {
       event: 'Bragantino v Internacional',
@@ -36,21 +36,45 @@ export const ticketInfos: TicketInfoProp = {
       market: 'Correct Score',
       selection: 'Draw 2-2',
       odds: 17.0,
-      status: 'notplayed',
+      status: 'won',
     },
   ],
 
-  stats: 'unsettled',
+  stats: 'settled',
   oddsType: 'american',
 } as TicketInfoProp;
 
-export const betBalance = {
-  balance: formatCurrency(ticketInfos.returnAmount + 6000),
-} as const;
-
-function myHome() {
+export function myHome(
+  leftFunds: number,
+  state: TicketInfoProp['stats'],
+  selection: TicketInfoProp['selections'],
+  returnAmount: TicketInfoProp['returnAmount']
+) {
   // creating a function to display the amount on the home button is should have a state management for settled and //unsettled like this
   // when on settled it should multiple the returnedAmount and amountLeft
   // when unsettled should show the amount
   // should check if game lost  state consider for the returned button
+
+  const total: number = leftFunds + returnAmount;
+  if (state === 'settled') {
+    if (
+      selection.some((selection) => selection.status === 'lost') ||
+      selection.some((selection) => selection.status === 'live') ||
+      selection.some((selection) => selection.status === 'notplayed')
+    ) {
+      return leftFunds;
+    } else {
+      return total;
+    }
+  } else {
+    return leftFunds;
+  }
 }
+
+const leftFund: number = 6000;
+
+export const betBalance = {
+  balance: formatCurrency(
+    myHome(leftFund, ticketInfos.stats, ticketInfos.selections, ticketInfos.returnAmount)
+  ),
+} as const;

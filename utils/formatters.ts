@@ -1,6 +1,7 @@
 // import { ticketInfos } from '../constants/mybets';
 
 import { CountryCurrencyLocale, country } from '../constants/country';
+import { TicketSelection } from '../constants/mybets';
 
 const countryCurrencyMapping: CountryCurrencyLocale[] = [
   { country: 'Afghanistan', currency: 'AFN', locale: 'fa-AF' },
@@ -111,7 +112,7 @@ function formatNumber(
 
 export type Stats = 'unsettled' | 'settled';
 
-const formatBetType = (selections: any[], stats: Stats): string => {
+const formatBetType = (selections: TicketSelection[], stats: Stats): string => {
   const count = selections.length;
 
   if (count === 1) return stats === 'unsettled' ? 'Single' : 'Singles';
